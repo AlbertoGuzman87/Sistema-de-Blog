@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Tag;
 
+//Para  mover la img de archivos tmp usamos Storage
+use Illuminate\Support\Facades\Storage;
+
 use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
@@ -47,7 +50,20 @@ class PostController extends Controller
     //Definir el metodo que es un objeto de StorePostRequest
     public function store(StorePostRequest $request)
     {
+
+        //Prueba de que se esta mandando en el name file
+        //return request()->file('file');
+
         $post = Post::create($request->all());
+
+        //Si esta mandado una img
+        if (request()->file('file')) {
+            //Mueve la img a una carpeta en especifico
+            $url =  Storage::put('posts', request()->file('file'));
+            $post->image()->create([
+                'url' => $url
+            ]);
+        }
 
         //Si esta mandado etiquetas
         if ($request->tags) {

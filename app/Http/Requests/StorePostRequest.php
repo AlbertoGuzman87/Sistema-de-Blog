@@ -16,7 +16,7 @@ class StorePostRequest extends FormRequest
         //La vilidacion ayuda a saber si el que esta creando el posts es el usuario autentificado
         if ($this->user_id == auth()->user()->id) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -33,6 +33,7 @@ class StorePostRequest extends FormRequest
             'slug' => 'required|unique:posts',
             //Solo acepta valores 1 y 2
             'status' => 'required|in:1,2',
+            'file' => 'image'
         ];
         //si en el campo estatus se manda el valor de 2
         if ($this->status == 2) {

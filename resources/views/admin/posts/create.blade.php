@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
             {!! Form::hidden('user_id', auth()->user()->id) !!}
 
@@ -81,6 +81,32 @@
                 @enderror
             </div>
 
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="image-wrapper">
+                        <img id="picture" src="https://cdn.pixabay.com/photo/2015/07/09/22/45/tree-838667_960_720.jpg"
+                            alt="">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {!! Form::label('file', 'Imagen que se mostra en el post') !!}
+                        {!! Form::file('file', ['class' => 'from-control-file', 'accept' => 'image/*']) !!}
+
+                        @error('file')
+                            <br>
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                        <p class="mt-3"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem deleniti
+                            consequatur explicabo
+                            rerum doloremque, officiis, nesciunt, non eos quam corrupti minima officia aliquam suscipit.
+                            Tempora reiciendis porro quisquam nihil cum. </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 {!! Form::label('extract', 'Extracto') !!}
                 {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
@@ -107,6 +133,23 @@
 
         </div>
     </div>
+@stop
+
+@section('css')
+    <style>
+        .image-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+
+        .image-wrapper img {
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
 @stop
 
 @section('js')
@@ -141,6 +184,21 @@
             .catch(error => {
                 console.error(error);
             });
+
+    </script>
+    <script>
+        //Cambiar imagen
+        document.getElementById("file").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(event) {
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById("picture").setAttribute('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
 
     </script>
 @endsection
