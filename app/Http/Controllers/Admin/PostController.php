@@ -11,8 +11,8 @@ use App\Models\Tag;
 
 //Para  mover la img de archivos tmp usamos Storage
 use Illuminate\Support\Facades\Storage;
-
-use App\Http\Requests\StorePostRequest;
+//Reglas de validación del frm create y edit
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -47,8 +47,8 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //Definir el metodo que es un objeto de StorePostRequest
-    public function store(StorePostRequest $request)
+    //Definir el metodo que es un objeto de PostRequest
+    public function store(PostRequest $request)
     {
 
         //Prueba de que se esta mandando en el name file
@@ -70,7 +70,7 @@ class PostController extends Controller
             //Entra a la relación muchos a muschos y asigna los valores del array generado en la vista create
             $post->tags()->attach($request->tags);
         }
-        return redirect()->route('admin.posts.edit', $post);
+        return redirect()->route('admin.posts.edit', $post)->with('info', 'El post se creó correctamente');
     }
 
     /**
@@ -92,7 +92,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -102,9 +105,41 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    //Definir el metodo que es un objeto de PostRequest
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $post->update($request->all());
+
+        //Si esta mandado una img
+        if (request()->file('file')) {
+            //Mueve la img a una carpeta en especifico
+            $url =  Storage::put('posts', request()->file('file'));
+            //si ese post ya cuenta con una img
+            if ($post->image) {
+                //elimina la img existente relacionada a ese post 
+                Storage::delete($post->image->url);
+                //actualiza la nueva img del post
+                $post->image->update([
+                    'url' => $url
+                ]);
+            } else {
+                //si no existe ninguna foto
+                //crea un nuevo registro
+                $post->image()->create([
+                    'url' => $url
+                ]);
+            }
+        }
+
+        //Si esta mandado etiquetas
+        if ($request->tags) {
+            //Entra a la relación muchos a muschos y reasigna los valores del array
+            //sync verifica si ya exiten registros coinsidentes y ya no los inserta
+            //sync si encuentra nuevos los inserta
+            //sync si ya no encuentra uno nuevo seleccionado lo borra de BD
+            $post->tags()->sync($request->tags);
+        }
+        return redirect()->route('admin.posts.edit', $post)->with('info', 'El post se actualizó correctamente');
     }
 
     /**
