@@ -18,6 +18,9 @@ class PostController extends Controller
     //Lista los Posts relacionados a la misma categoria
     public function show(Post $post)
     {
+        //Policy que verifica si tiene status publicado
+        $this->authorize('published', $post);
+
 
         $similares = Post::where('category_id', $post->category_id)
             ->where('status', 2)

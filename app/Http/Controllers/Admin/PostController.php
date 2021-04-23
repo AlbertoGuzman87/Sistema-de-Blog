@@ -92,6 +92,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //Policy que perimte saber si es dueño del post
+        $this->authorize('author', $post);
+
         $categories = Category::pluck('name', 'id');
         $tags = Tag::all();
 
@@ -108,6 +111,10 @@ class PostController extends Controller
     //Definir el metodo que es un objeto de PostRequest
     public function update(PostRequest $request, Post $post)
     {
+
+        //Policy que perimte saber si es dueño del post
+        $this->authorize('author', $post);
+
         $post->update($request->all());
 
         //Si esta mandado una img
@@ -150,6 +157,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //Policy que perimte saber si es dueño del post
+        $this->authorize('author', $post);
+
         $post->delete();
 
         //Elimina la imagen del post a eliminar
