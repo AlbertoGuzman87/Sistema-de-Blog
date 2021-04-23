@@ -12,6 +12,13 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    //Metodo para proteger vistas
+    public function __construct()
+    {
+        $this->middleware('can:admin.users.index')->only('index');
+        $this->middleware('can:admin.users.edit')->only('edit,update');
+    }
+
     public function index()
     {
         return view('admin.users.index');
