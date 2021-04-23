@@ -235,22 +235,29 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Dashboard',
-            'route'         => 'admin.home',
-            'icon'        => 'fas fa-tachometer-alt fa-fw',
+            'text'    => 'Dashboard',
+            'route'   => 'admin.home',
+            'icon'    => 'fas fa-tachometer-alt fa-fw',
+        ],
+        [
+            'text'   => 'Users',
+            'route'  => 'admin.users.index',
+            'icon'   => 'fas fa-users fa-fw',
+            //Pone activa el color azul en edit y create
+            'active' => ['admin/users*'],
         ],
         ['header' => 'ADMINISTRADOR'],
         [
-            'text' => 'Categorias',
+            'text'   => 'Categorias',
             'route'  => 'admin.categories.index',
-            'icon' => 'fab fa-fw fa-buffer',
+            'icon'   => 'fab fa-fw fa-buffer',
             //Pone activa el color azul en edit y create
             'active' => ['admin/categories*'],
         ],
         [
-            'text' => 'Etiquetas',
+            'text'   => 'Etiquetas',
             'route'  => 'admin.tags.index',
-            'icon' => 'far fa-fw fa-bookmark',
+            'icon'   => 'far fa-fw fa-bookmark',
             'active' => ['admin/tags*'],
         ],
 
@@ -265,7 +272,7 @@ return [
             'text'       => 'Crear Nuevo Post',
             'icon'       => 'fas fa-fw fa-file',
             'icon_color' => 'yellow',
-            'route'        => 'admin.posts.create',
+            'route'      => 'admin.posts.create',
         ],
     ],
 
