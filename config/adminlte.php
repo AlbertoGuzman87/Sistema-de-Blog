@@ -238,6 +238,8 @@ return [
             'text'    => 'Dashboard',
             'route'   => 'admin.home',
             'icon'    => 'fas fa-tachometer-alt fa-fw',
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.home',
         ],
         [
             'text'   => 'Users',
@@ -245,6 +247,8 @@ return [
             'icon'   => 'fas fa-users fa-fw',
             //Pone activa el color azul en edit y create
             'active' => ['admin/users*'],
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.users.index',
         ],
         ['header' => 'ADMINISTRADOR'],
         [
@@ -253,12 +257,16 @@ return [
             'icon'   => 'fab fa-fw fa-buffer',
             //Pone activa el color azul en edit y create
             'active' => ['admin/categories*'],
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.categories.index',
         ],
         [
             'text'   => 'Etiquetas',
             'route'  => 'admin.tags.index',
             'icon'   => 'far fa-fw fa-bookmark',
             'active' => ['admin/tags*'],
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.tags.index',
         ],
 
         ['header' => 'OPCIONES DE BLOG'],
@@ -267,12 +275,16 @@ return [
             'icon'       => 'fas fa-fw fa-clipboard',
             'icon_color' => 'red',
             'route'      => 'admin.posts.index',
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.posts.index',
         ],
         [
             'text'       => 'Crear Nuevo Post',
             'icon'       => 'fas fa-fw fa-file',
             'icon_color' => 'yellow',
             'route'      => 'admin.posts.create',
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.posts.create',
         ],
     ],
 

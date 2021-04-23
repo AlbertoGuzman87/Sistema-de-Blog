@@ -1,7 +1,8 @@
 <div class="card">
 
     <div class="card-header">
-        <input type="text" class="form-control" placeholder="Ingresa el nombre o correo del usuario..." wire:model='search'>
+        <input type="text" class="form-control" placeholder="Ingresa el nombre o correo del usuario..."
+            wire:model='search'>
     </div>
     @if ($users->count())
         <div class="card-body">
@@ -11,7 +12,7 @@
                         <td>ID</td>
                         <td>Name</td>
                         <td>Email</td>
-                        <td colspan="2"></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,14 +22,8 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td width="10px">
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.users.edit',$user) }}">Editar</a>
-                            </td>
-                            <td width="10px">
-                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                <a class="btn btn-primary btn-sm"
+                                    href="{{ route('admin.users.edit', $user) }}">Editar</a>
                             </td>
                         </tr>
                     @endforeach

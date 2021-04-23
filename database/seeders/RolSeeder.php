@@ -26,22 +26,24 @@ class RolSeeder extends Seeder
         //Permisos
         //Ruta del dashboard
         //Crea el permiso y se lo asigna al rol 1 y 2
-        Permission::create(['name' => 'admin.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.home'])->syncRoles([$role1, $role2]);
 
         Permission::create(['name' => 'admin.users.index'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.update'])->syncRoles([$role1]);
 
         //Rutas de las categorias
+        //Crea el permiso y se lo asigna al rol 1 y 2
+        Permission::create(['name' => 'admin.categories.index'])->syncRoles([$role1, $role2]);
         //Crea el permiso y se lo asigna al rol 1
-        Permission::create(['name' => 'admin.categories.index'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.categories.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.categories.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.categories.destroy'])->syncRoles([$role1]);
 
         //Rutas de las tags
+        //Crea el permiso y se lo asigna al rol 1 y 2
+        Permission::create(['name' => 'admin.tags.index'])->syncRoles([$role1, $role2]);
         //Crea el permiso y se lo asigna al rol 1
-        Permission::create(['name' => 'admin.tags.index'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.tags.create'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.tags.edit'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.tags.destroy'])->syncRoles([$role1]);
