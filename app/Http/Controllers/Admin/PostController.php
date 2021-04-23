@@ -150,6 +150,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        //Elimina la imagen del post a eliminar
+        //Descomentar en caso de no usar observer
+        // if ($post->image) {
+        //     Storage::delete($post->image->url);
+        // }
+
+        return redirect()->route('admin.posts.index')->with('info', 'El post se eliminó correctamente');
     }
 }
