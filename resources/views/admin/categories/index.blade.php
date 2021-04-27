@@ -20,9 +20,9 @@
 
         {{-- Se le muestra solo a los que tienen ese permiso --}}
         @can('admin.tags.create')
-            <div class="card-header">
-                <a class="btn btn-success " href="{{ route('admin.categories.create') }}">Nueva Categoria</a>
-            </div>
+        <div class="card-header">
+            <a class="btn btn-success " href="{{ route('admin.categories.create') }}">Nueva Categoria</a>
+        </div>
         @endcan
 
         <div class="card-body">

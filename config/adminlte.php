@@ -250,6 +250,15 @@ return [
             //Solo lo puedan ver usuarios con ese permiso
             'can'     => 'admin.users.index',
         ],
+        [
+            'text'   => 'Lista de roles',
+            'route'  => 'admin.roles.index',
+            'icon'   => 'fas fa-users-cog fa-fw',
+            //Pone activa el color azul en edit y create
+            'active' => ['admin/roles*'],
+            //Solo lo puedan ver usuarios con ese permiso
+            'can'     => 'admin.users.index',
+        ],
         ['header' => 'ADMINISTRADOR'],
         [
             'text'   => 'Categorias',
